@@ -3,20 +3,29 @@ package com.example.uberprojectauthservice.Controller;
 
 import com.example.uberprojectauthservice.DTOs.PassengerDto;
 import com.example.uberprojectauthservice.DTOs.PassengerSignupRequestDto;
+import com.example.uberprojectauthservice.Services.AuthService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/v1/auth")
 public class AuthController {
 
-    @PostMapping("/signup/passenger")
-    public ResponseEntity<PassengerDto> signUp(@RequestBody PassengerSignupRequestDto passengerSignupRequestDto) {
+    private final AuthService authService;
 
-        return null;
+    public AuthController(AuthService authService) {
+        this.authService = authService;
     }
 
+    @PostMapping("/signup/passenger")
+    public ResponseEntity<PassengerDto> signUp(@RequestBody PassengerSignupRequestDto passengerSignupRequestDto) {
+        PassengerDto response = authService.signupPassenger(passengerSignupRequestDto);
+        return new ResponseEntity<>(response, HttpStatus.CREATED);
+    }
+
+    @GetMapping("/signin/passenger")
+    public ResponseEntity<?> signIn() {
+        return new ResponseEntity<>(10, HttpStatus.CREATED);
+    }
 }

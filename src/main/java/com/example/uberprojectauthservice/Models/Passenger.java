@@ -3,7 +3,6 @@ package com.example.uberprojectauthservice.Models;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.OneToMany;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -20,7 +19,11 @@ import java.util.List;
 @AllArgsConstructor
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler" , "bookings"})
 public class Passenger extends BaseModel{
+    @Column(nullable = false)
     private String name;
+
+    @Column(nullable = false)
+    private String phoneNumber;
 
     @Column(nullable = false)
     private String email;
@@ -28,9 +31,6 @@ public class Passenger extends BaseModel{
     @Column(nullable = false)
     private String password;
 
-    @Column(nullable = false)
-    private String phoneNumber;
-
-    @OneToMany(mappedBy = "passenger", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "passenger")
     private List<Booking> bookings = new ArrayList<>();
 }
