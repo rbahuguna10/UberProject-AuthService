@@ -26,6 +26,11 @@ public class AuthPassengerDetails extends Passenger implements UserDetails {
         return this.username;
     }
 
+    @Override
+    public String getPassword() {
+        return this.password;
+    }
+
     // Below set of method are not much of a concern
     @Override
     public boolean isAccountNonExpired() {
